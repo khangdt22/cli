@@ -14,7 +14,6 @@
     "files": [
         "dist"
     ],
-    "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
@@ -30,6 +29,9 @@
         "*": {
             "*": [
                 "./dist/*"
+            ],
+            "plugins": [
+                "./dist/plugins/index.d.ts"
             ]
         }
     },
