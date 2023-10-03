@@ -7,7 +7,7 @@ export type WithLogger<C extends CommandContext> = C & {
     logger: Logger
 }
 
-export const logger = (options: UserLoggerOptions = {}): CliPlugin => ({
+export const logger = <C extends CommandContext = CommandContext>(options: UserLoggerOptions = {}): CliPlugin<C> => ({
     name: 'logger',
     apply(cli) {
         cli.hook.on('commands:*:prerun', (context) => {

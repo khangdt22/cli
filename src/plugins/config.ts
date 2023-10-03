@@ -12,7 +12,7 @@ export type WithAddConfigSchema<C extends Cli> = C & {
     addConfigSchema: <S extends AnyZodObject>(schema: S) => void
 }
 
-export const config = (schema?: AnyZodObject): CliPlugin => ({
+export const config = <C extends CommandContext = CommandContext>(schema?: AnyZodObject): CliPlugin<C> => ({
     name: 'config',
     apply(cli) {
         cli.options(z.object({
