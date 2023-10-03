@@ -13,8 +13,12 @@ export class Hook<H extends Record<PropertyKey, Fn>> {
         }
     }
 
-    public run<K extends keyof H>(name: K, ...args: Parameters<H[K]>) {
-        return Promise.all(this.getHooks(name).map((hook) => hook(...args)))
+    public async run<K extends keyof H>(name: K, ...args: Parameters<H[K]>) {
+        const hooks = this.getHooks(name)
+
+        for (const hook of hooks) {
+            await hook(...args)
+        }
     }
 
     public getHooks<K extends keyof H>(name: K) {
