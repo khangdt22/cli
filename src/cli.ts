@@ -11,7 +11,7 @@ export class Cli<TContext extends CommandContext = CommandContext> {
     public readonly program: Command
     public readonly hook: Hook<CliHooks<TContext>>
 
-    protected readonly plugins = new Set<CliPlugin>()
+    protected readonly plugins = new Set<CliPlugin<TContext>>()
     protected readonly commands = new Map<string, CommandDescription>()
     protected readonly directories = new Set<string>()
 
@@ -22,7 +22,7 @@ export class Cli<TContext extends CommandContext = CommandContext> {
         this.hook = new Hook<CliHooks<TContext>>()
     }
 
-    public use(plugin: CliPlugin) {
+    public use(plugin: CliPlugin<TContext>) {
         this.plugins.add(plugin)
     }
 
@@ -136,7 +136,7 @@ export class Cli<TContext extends CommandContext = CommandContext> {
         await this.hook.run('plugins:postload', this.plugins, this)
     }
 
-    protected checkPluginDependencies(plugin: CliPlugin, loaded: string[]) {
+    protected checkPluginDependencies(plugin: CliPlugin<TContext>, loaded: string[]) {
         const dependencies = plugin.dependencies ?? []
 
         for (const dependency of dependencies) {

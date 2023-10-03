@@ -7,10 +7,10 @@ import type { CliPlugin } from './cli'
 export type CliHooks<TContext extends CommandContext = CommandContext> = {
     'prerun': (cli: Cli<TContext>) => Awaitable<void>
     'postrun': (cli: Cli<TContext>) => Awaitable<void>
-    'plugins:preload': (plugins: Set<CliPlugin>, cli: Cli<TContext>) => Awaitable<void>
-    'plugins:postload': (plugins: Set<CliPlugin>, cli: Cli<TContext>) => Awaitable<void>
-    [key: `plugins:${string}:preapply`]: (plugin: CliPlugin, cli: Cli<TContext>) => Awaitable<void>
-    [key: `plugins:${string}:postapply`]: (plugin: CliPlugin, cli: Cli<TContext>) => Awaitable<void>
+    'plugins:preload': (plugins: Set<CliPlugin<TContext>>, cli: Cli<TContext>) => Awaitable<void>
+    'plugins:postload': (plugins: Set<CliPlugin<TContext>>, cli: Cli<TContext>) => Awaitable<void>
+    [key: `plugins:${string}:preapply`]: (plugin: CliPlugin<TContext>, cli: Cli<TContext>) => Awaitable<void>
+    [key: `plugins:${string}:postapply`]: (plugin: CliPlugin<TContext>, cli: Cli<TContext>) => Awaitable<void>
     'directories:preload': (directories: Set<string>, cli: Cli<TContext>) => Awaitable<void>
     'directories:postload': (directories: Set<string>, cli: Cli<TContext>) => Awaitable<void>
     'commands:preload': (commands: Map<string, CommandDescription>, cli: Cli<TContext>) => Awaitable<void>
