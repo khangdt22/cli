@@ -21,7 +21,7 @@ export function getArgumentsSchema(argumentsSchema: CommandArguments): ArgumentS
     }
 
     if (schema instanceof ZodTuple) {
-        let restIndex
+        let restIndex: number | undefined
 
         if (schema._def.rest) {
             restIndex = schema._def.items.length
