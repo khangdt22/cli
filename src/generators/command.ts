@@ -3,7 +3,7 @@ import type { Cli } from '../cli'
 import { buildArguments, buildOptions } from '../utils'
 import { Command } from '../command'
 
-export function generateCommand(name: string, description: CommandDescription, cli: Cli, prefix = '') {
+export function generateCommand<TCli extends Cli = Cli>(name: string, description: CommandDescription, cli: TCli, prefix = '') {
     const command = new Command(name)
 
     for (const fn of ['alias', 'usage', 'description', 'summary'] as const) {

@@ -1,15 +1,15 @@
 import { fileURLToPath } from 'node:url'
 import { readPackageUp } from 'read-pkg-up'
 import { z, ZodObject } from 'zod'
-import type { CliConfig, CliHooks, CliPlugin, CommandDescription, CommandOption } from './types'
+import type { CliConfig, CliHooks, CliPlugin, CommandDescription, CommandOption, CommandContext } from './types'
 import { buildOptions, Hook, importDirectory } from './utils'
 import { DependencyNotFound } from './errors'
 import { generateCommand } from './generators'
 import { Command } from './command'
 
-export class Cli {
+export class Cli<TContext extends CommandContext = CommandContext> {
     public readonly program: Command
-    public readonly hook: Hook<CliHooks>
+    public readonly hook: Hook<CliHooks<TContext>>
 
     protected readonly plugins = new Set<CliPlugin>()
     protected readonly commands = new Map<string, CommandDescription>()
@@ -19,7 +19,7 @@ export class Cli {
 
     public constructor(public readonly config: CliConfig = {}) {
         this.program = new Command(config.name)
-        this.hook = new Hook<CliHooks>()
+        this.hook = new Hook<CliHooks<TContext>>()
     }
 
     public use(plugin: CliPlugin) {
@@ -98,7 +98,7 @@ export class Cli {
             await this.hook.run(`commands:*:preload`, description, this)
             await this.hook.run(`commands:${prefix}${name}:preload`, description, this)
 
-            const command = generateCommand(name, description, this, prefix)
+            const command = generateCommand<any>(name, description, this, prefix)
 
             if (description.subcommands && Object.keys(description.subcommands).length > 0) {
                 await this.loadCommands(command, new Map(Object.entries(description.subcommands)), prefix + name + '/')
@@ -127,7 +127,7 @@ export class Cli {
             await this.hook.run(`plugins:${plugin.name}:preapply`, plugin, this)
 
             await this.checkPluginDependencies(plugin, loadedPlugins)
-            await plugin.apply(this)
+            await plugin.apply(this as any)
             await loadedPlugins.push(plugin.name)
 
             await this.hook.run(`plugins:${plugin.name}:postapply`, plugin, this)
