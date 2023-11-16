@@ -1,6 +1,8 @@
 import { fileURLToPath } from 'node:url'
 import { readPackageUp } from 'read-pkg-up'
 import { z, ZodObject } from 'zod'
+import type { AnyObject } from '@khangdt22/utils/object'
+import { readJsonFile } from '@khangdt22/utils/fs'
 import type { CliConfig, CliHooks, CliPlugin, CommandDescription, CommandOption, CommandContext } from './types'
 import { buildOptions, Hook, importDirectory } from './utils'
 import { DependencyNotFound } from './errors'
@@ -16,10 +18,25 @@ export class Cli<TContext extends CommandContext = CommandContext> {
     protected readonly directories = new Set<string>()
 
     protected globalOptionsSchema: ZodObject<Record<string, CommandOption>> = z.object({})
+    protected packageJsonContent?: AnyObject
 
     public constructor(public readonly config: CliConfig = {}) {
         this.program = new Command(config.name)
         this.hook = new Hook<CliHooks<TContext>>()
+    }
+
+    public get packageJson() {
+        if (this.packageJsonContent) {
+            return Promise.resolve(this.packageJsonContent)
+        }
+
+        return new Promise<AnyObject>((resolve) => {
+            if (this.config.packageJsonPath) {
+                return resolve((this.packageJsonContent = readJsonFile(this.config.packageJsonPath)))
+            }
+
+            readPackageUp().then((result) => resolve((this.packageJsonContent = result?.packageJson ?? {})))
+        })
     }
 
     public use(plugin: CliPlugin<TContext>) {
@@ -50,9 +67,8 @@ export class Cli<TContext extends CommandContext = CommandContext> {
         await this.loadCommands(this.program, this.commands)
         await this.loadGlobalOptions()
 
-        const pkg = await readPackageUp()
-        const version = this.config.version ?? pkg?.packageJson.version
-        const description = this.config.description ?? pkg?.packageJson.description ?? ''
+        const version = this.config.version ?? (await this.packageJson).version
+        const description = this.config.description ?? (await this.packageJson).description ?? ''
 
         if (version) {
             this.program.version(version, '-V, --version', 'Show current version number')
