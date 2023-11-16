@@ -34,8 +34,8 @@ export const config = <C extends CommandContext = CommandContext>(schema?: AnyZo
         })
 
         cli.hook.on('commands:*:prerun', async (context) => {
-            const { command, globalOptions } = context
-            const explorer = cosmiconfig(command.name())
+            const { cli, command, globalOptions } = context
+            const explorer = cosmiconfig(cli.program.name())
 
             try {
                 const result = await (globalOptions.config ? explorer.load(globalOptions.config) : explorer.search())
