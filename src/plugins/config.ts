@@ -4,7 +4,7 @@ import type { CliPlugin, CommandContext } from '../types'
 import { option } from '../utils'
 import type { Cli } from '../cli'
 
-export type WithConfig<C extends CommandContext, S extends AnyZodObject | undefined = undefined> = C & {
+export type WithConfig<C extends CommandContext<any, any, any>, S extends AnyZodObject | undefined = undefined> = C & {
     config: S extends AnyZodObject ? TypeOf<S> : Record<string, any>
 }
 

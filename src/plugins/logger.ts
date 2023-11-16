@@ -3,7 +3,7 @@ import { createLogger } from '@khangdt22/logger'
 import { deepMerge } from '@khangdt22/utils/vendor'
 import type { CliPlugin, CommandContext } from '../types'
 
-export type WithLogger<C extends CommandContext> = C & {
+export type WithLogger<C extends CommandContext<any, any, any>> = C & {
     logger: Logger
 }
 
