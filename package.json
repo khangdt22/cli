@@ -33,7 +33,7 @@
             ]
         }
     },
-    "packageManager": "pnpm@8.8.0",
+    "packageManager": "pnpm@8.10.5",
     "engines": {
         "node": ">=18.0.0"
     },
@@ -55,30 +55,30 @@
         "@khangdt22/logger": "latest",
         "@khangdt22/utils": "latest",
         "chalk": "^5.3.0",
-        "commander": "^11.0.0",
+        "commander": "^11.1.0",
         "cosmiconfig": "^8.3.6",
         "param-case": "^3.0.4",
         "plur": "^5.1.0",
         "read-pkg-up": "^10.1.0",
         "term-size": "^3.0.2",
-        "zod-validation-error": "^1.5.0"
+        "zod-validation-error": "^2.1.0"
     },
     "devDependencies": {
-        "@commitlint/cli": "^17.7.2",
+        "@commitlint/cli": "^18.4.2",
         "@commitlint/config-conventional": "latest",
         "@khangdt22/eslint-config": "latest",
         "@khangdt22/prettier-config": "latest",
-        "@types/node": "^20.8.2",
-        "eslint": "^8.50.0",
-        "lint-staged": "^14.0.1",
+        "@types/node": "^20.9.0",
+        "eslint": "^8.53.0",
+        "lint-staged": "^15.1.0",
         "np": "^8.0.4",
-        "npm-check-updates": "^16.14.4",
-        "only-allow": "^1.2.0",
-        "prettier": "^3.0.3",
+        "npm-check-updates": "^16.14.6",
+        "only-allow": "^1.2.1",
+        "prettier": "^3.1.0",
         "rimraf": "^5.0.5",
         "simple-git-hooks": "^2.9.0",
         "typescript": "^5.2.2",
-        "zod": "^3.22.2"
+        "zod": "^3.22.4"
     },
     "commitlint": {
         "extends": "@commitlint/config-conventional"
