@@ -1,11 +1,13 @@
 import type { Awaitable } from '@khangdt22/utils/promise'
 import type { AnyZodObject, TypeOf, ZodArray, ZodTypeAny } from 'zod'
 import type { Command } from '../command'
+import type { Cli } from '../cli'
 import type { CommandArguments } from './arguments'
 import type { CommandOptions } from './options'
 
 // eslint-disable-next-line max-len
 export interface CommandContext<A extends CommandArguments = ZodArray<ZodTypeAny>, O extends CommandOptions = AnyZodObject, G extends CommandOptions = AnyZodObject> {
+    cli: Cli<any>
     command: Command
     args: TypeOf<A>
     options: TypeOf<O>

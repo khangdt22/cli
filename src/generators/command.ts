@@ -26,6 +26,7 @@ export function generateCommand<TCli extends Cli = Cli>(name: string, descriptio
             const args = parseArguments(input)
 
             const context: CommandContext = {
+                cli,
                 command: cmd,
                 args,
                 options,
