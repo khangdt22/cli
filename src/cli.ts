@@ -21,7 +21,7 @@ export class Cli<TContext extends CommandContext = CommandContext> {
     protected packageJsonContent?: AnyObject
 
     public constructor(public readonly config: CliConfig = {}) {
-        this.program = new Command(config.name)
+        this.program = new Command()
         this.hook = new Hook<CliHooks<TContext>>()
     }
 
@@ -60,6 +60,8 @@ export class Cli<TContext extends CommandContext = CommandContext> {
     }
 
     public async run(argv: string[] = process.argv) {
+        this.program.name(this.config.name ?? (await this.packageJson).name)
+
         await this.hook.run('prerun', this)
 
         await this.loadPlugins()
