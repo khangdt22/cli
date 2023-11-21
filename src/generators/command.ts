@@ -31,6 +31,7 @@ export function generateCommand<TCli extends Cli = Cli>(name: string, descriptio
                 args,
                 options,
                 globalOptions: {},
+                description,
                 schemas: {
                     args: description.args,
                     options: description.options,

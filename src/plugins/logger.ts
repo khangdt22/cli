@@ -11,8 +11,10 @@ export const logger = <C extends CommandContext = CommandContext>(options: UserL
     name: 'logger',
     apply(cli) {
         cli.hook.on('commands:*:prerun', (context) => {
+            const logger = createLogger(deepMerge(context['config']?.logger ?? {}, options))
+
             Object.assign(context, {
-                logger: createLogger(deepMerge(options, context['config']?.logger ?? {})),
+                logger: 'loggerNamespace' in context.description ? logger.child(context.description['loggerNamespace'] as string) : logger,
             })
         })
     },

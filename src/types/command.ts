@@ -12,6 +12,7 @@ export interface CommandContext<A extends CommandArguments = ZodArray<ZodTypeAny
     args: TypeOf<A>
     options: TypeOf<O>
     globalOptions: TypeOf<G>
+    description: CommandDescription<any>
     schemas: {
         args?: A
         options?: O
