@@ -2,7 +2,7 @@ import { readdir, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { paramCase } from 'param-case'
-import { isObject, isKeyOf } from '@khangdt22/utils/object'
+import { isKeyOf } from '@khangdt22/utils/object'
 import type { CommandDescription } from '../types'
 
 export async function importDirectory(path: string) {
@@ -38,11 +38,7 @@ export async function importDirectory(path: string) {
         }
 
         const description = await import(pathToFileURL(filePath).href).then((m) => {
-            if (isKeyOf(m, 'default') && isObject(m.default)) {
-                return m.default
-            }
-
-            return m
+            return isKeyOf(m, 'default') ? m.default : m
         })
 
         commands.set(name, Object.assign(command, description))
