@@ -12,7 +12,13 @@ export type WithAddConfigSchema<C extends Cli> = C & {
     addConfigSchema: <S extends AnyZodObject>(schema: S) => void
 }
 
-export const config = <C extends CommandContext = CommandContext>(schema?: AnyZodObject): CliPlugin<C> => ({
+export interface ConfigPluginOptions {
+    name?: string
+    path?: string
+}
+
+// eslint-disable-next-line max-len
+export const config = <C extends CommandContext = CommandContext>(schema?: AnyZodObject, options: ConfigPluginOptions = {}): CliPlugin<C> => ({
     name: 'config',
     apply(cli) {
         cli.options(z.object({
@@ -35,10 +41,12 @@ export const config = <C extends CommandContext = CommandContext>(schema?: AnyZo
 
         cli.hook.on('commands:*:prerun', async (context) => {
             const { cli, command, globalOptions } = context
-            const explorer = cosmiconfig(cli.program.name())
+            const name = options.name ?? cli.program.name()
+            const explorer = cosmiconfig(name)
+            const path = globalOptions.config ?? options.path
 
             try {
-                const result = await (globalOptions.config ? explorer.load(globalOptions.config) : explorer.search())
+                const result = await (path ? explorer.load(path) : explorer.search())
                 const config = result?.config ?? {}
 
                 Object.assign(context, {
