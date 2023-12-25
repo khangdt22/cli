@@ -1,7 +1,7 @@
 import { Command as BaseCommand, type ErrorOptions } from 'commander'
 import { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import { formatters } from '@khangdt22/logger'
+import { formatError } from '@khangdt22/logger/prettiers'
 import chalk from 'chalk'
 import { Help } from './help'
 
@@ -20,7 +20,7 @@ export class Command extends BaseCommand {
             })
         }
 
-        const message = error instanceof Error ? formatters.formatError(error) : chalk.bgRed.whiteBright(` ${error} `)
+        const message = error instanceof Error ? formatError(error) : chalk.bgRed.whiteBright(` ${error} `)
 
         return super.error(message, {
             code: error['code'],
