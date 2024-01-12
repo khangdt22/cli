@@ -34,7 +34,7 @@
         }
     },
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=18.19.0"
     },
     "publishConfig": {
         "access": "public"
@@ -63,11 +63,11 @@
         "zod-validation-error": "^2.1.0"
     },
     "devDependencies": {
-        "@commitlint/cli": "^18.4.3",
+        "@commitlint/cli": "^18.4.4",
         "@commitlint/config-conventional": "latest",
         "@khangdt22/eslint-config": "latest",
         "@khangdt22/prettier-config": "latest",
-        "@types/node": "^20.10.5",
+        "@types/node": "^20.11.0",
         "eslint": "^8.56.0",
         "lint-staged": "^15.2.0",
         "np": "^9.2.0",
