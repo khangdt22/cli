@@ -3,7 +3,7 @@
     "timezone": "Asia/Ho_Chi_Minh",
     "extends": [
         "config:recommended",
-        ":allNonMajor",
+        "group:allNonMajor",
         ":semanticCommitTypeAll(chore)"
     ],
     "meteor": {
