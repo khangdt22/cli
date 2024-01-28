@@ -58,7 +58,7 @@
         "cosmiconfig": "^9.0.0",
         "param-case": "^3.0.4",
         "plur": "^5.1.0",
-        "read-pkg-up": "^10.1.0",
+        "read-package-up": "^11.0.0",
         "term-size": "^3.0.2",
         "zod-validation-error": "^2.1.0"
     },
