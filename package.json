@@ -77,7 +77,7 @@
         "rimraf": "^5.0.5",
         "simple-git-hooks": "^2.9.0",
         "typescript": "^5.3.3",
-        "zod": "^3.22.4"
+        "zod": "^3.23.8"
     },
     "commitlint": {
         "extends": "@commitlint/config-conventional"
