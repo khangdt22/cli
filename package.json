@@ -54,7 +54,7 @@
         "@khangdt22/logger": "latest",
         "@khangdt22/utils": "latest",
         "chalk": "^5.3.0",
-        "commander": "^11.1.0",
+        "commander": "^12.1.0",
         "cosmiconfig": "^9.0.0",
         "param-case": "^3.0.4",
         "plur": "^5.1.0",
