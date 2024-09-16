@@ -60,7 +60,7 @@
         "plur": "^5.1.0",
         "read-pkg-up": "^10.1.0",
         "term-size": "^3.0.2",
-        "zod-validation-error": "^2.1.0"
+        "zod-validation-error": "^3.4.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^18.4.3",
