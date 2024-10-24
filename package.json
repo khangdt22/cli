@@ -71,7 +71,7 @@
         "eslint": "^8.56.0",
         "lint-staged": "^15.2.0",
         "np": "^9.2.0",
-        "npm-check-updates": "^16.14.12",
+        "npm-check-updates": "^17.1.5",
         "only-allow": "^1.2.1",
         "prettier": "^3.1.1",
         "rimraf": "^5.0.5",
